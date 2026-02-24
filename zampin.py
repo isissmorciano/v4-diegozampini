@@ -156,4 +156,26 @@ def carica_biblioteca(nome_file: str) -> list[dict]:
 #    Restituisce una nuova lista con solo i libri il cui campo `"genere"` corrisponde a quello passato.
 
 def filtra_per_genere(libri: list[dict], genere: str) -> list[dict]:
-    
+    filtrati = []
+    for libro in libri:
+        if libro["genere"] == genere:
+            filtrati.append(libro)
+    return filtrati
+
+
+
+# 1. Definisci `calcola_media_anno(libri: list[dict]) -> float`:
+#    Restituisce la media degli anni di pubblicazione come `float`.
+#    Se la lista è vuota, restituisce `0.0`.
+
+# 2. Definisci `trova_libro_piu_recente(libri: list[dict]) -> dict | None`:
+#    Restituisce il dizionario del libro con l'anno più alto.
+#    Se la lista è vuota, restituisce `None`.
+
+def calcola_media_anno(libri: list[dict]) -> float:
+    if not libri:
+        return 0.0
+    totale = sum(totale("anno", 0) for libro in libri)
+    return totale / len(libri)
+
+def trova_libro_piu_recente(libri: list[dict]) -> dict | None:

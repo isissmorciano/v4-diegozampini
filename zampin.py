@@ -133,7 +133,7 @@ import json
 
 def salva_biblioteca(libri: list[dict], nome_file: str) -> None:
     with open(nome_file, 'w', encoding='utf-8') as f:
-        json.dump(libri, f, indent=4)
+            json.dump(libri, f, indent=4)
     print(f"File '{nome_file}' salvato con successo.")
 
 # 2. Definisci `carica_biblioteca(nome_file: str) -> list[dict]`:
@@ -180,7 +180,7 @@ def calcola_media_anno(libri: list[dict]) -> float:
 
 def trova_libro_piu_recente(libri: list[dict]) -> dict | None:
     pass
-
+    
 # 1. Definisci `conta_per_genere(libri: list[dict]) -> dict[str, int]`:
 #    Restituisce un dizionario dove le chiavi sono i generi e i valori sono il numero di libri per genere.
 def conta_per_genere(libri: list[dict]) -> dict | None:
@@ -195,8 +195,11 @@ def conta_per_genere(libri: list[dict]) -> dict | None:
 # - Restituisce una tupla `(success, messaggio, libri_modificati)` dove `success` è `True` se il libro è stato trovato e modificato, altrimenti `False`. La lista modificata è sempre restituita.
 
 def modifica_anno_libro(libri: list[dict], titolo : str, nuovo_anno: int) -> tuple[bool, str, list[dict]]:
-    pass
-
+    for libro in libri:
+        if libro.get("titolo") == titolo:
+            libro["anno"] = nuovo_anno
+            messaggio = f"Libro '{titolo}' aggiornato con anno {nuovo_anno}. Totale libri: {len(libri)}"
+            return True, messaggio 
 def main():
     libri = [
      {"titolo": "Il piccolo principe", "genere": "Romanzo", "anno": 1943},
@@ -204,7 +207,6 @@ def main():
      {"titolo": "Dune", "genere": "Fantascienza", "anno": 1965},
      {"titolo": "Harry Potter", "genere": "Fantasy", "anno": 1997}
  ]
-
 nome_file = "biblioteca.json"
 
 salva_biblioteca(libri, nome_file)
@@ -238,4 +240,4 @@ try:
     nuovo_anno = int(input("Inserisci il nuovo anno. "))
 except ValueError:
     print("Anno non valido")
-
+    

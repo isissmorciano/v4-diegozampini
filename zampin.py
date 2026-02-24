@@ -179,3 +179,63 @@ def calcola_media_anno(libri: list[dict]) -> float:
     return totale / len(libri)
 
 def trova_libro_piu_recente(libri: list[dict]) -> dict | None:
+    pass
+
+# 1. Definisci `conta_per_genere(libri: list[dict]) -> dict[str, int]`:
+#    Restituisce un dizionario dove le chiavi sono i generi e i valori sono il numero di libri per genere.
+def conta_per_genere(libri: list[dict]) -> dict | None:
+    conteggio = {}
+    for libro in libri:
+        genere = libro.get("genere", "Sconosciuto")
+        conteggio[genere] = conteggio.get(genere, 0 ) + 1 
+    return conteggio   
+
+# Definisci `modifica_anno_libro(libri: list[dict], titolo: str, nuovo_anno: int) -> tuple[bool, str, list[dict]]`:
+# - Trova il libro con quel titolo (ricerca esatta) e aggiorna l'anno.
+# - Restituisce una tupla `(success, messaggio, libri_modificati)` dove `success` è `True` se il libro è stato trovato e modificato, altrimenti `False`. La lista modificata è sempre restituita.
+
+def modifica_anno_libro(libri: list[dict], titolo : str, nuovo_anno: int) -> tuple[bool, str, list[dict]]:
+    pass
+
+def main():
+    libri = [
+     {"titolo": "Il piccolo principe", "genere": "Romanzo", "anno": 1943},
+     {"titolo": "1984", "genere": "Fantascienza", "anno": 1949},
+     {"titolo": "Dune", "genere": "Fantascienza", "anno": 1965},
+     {"titolo": "Harry Potter", "genere": "Fantasy", "anno": 1997}
+ ]
+
+nome_file = "biblioteca.json"
+
+salva_biblioteca(libri, nome_file)
+libri_caricati = carica_biblioteca(nome_file)
+print(f"Libri in archivio: {len(libri_caricati)}")
+
+
+fantascienza = filtra_per_genere(libri_caricati, "Fantascienza")
+print(f"\n Libri di fantascienza: {len(fantascienza)}")
+for libro in fantascienza:
+    print(f"- {libro['titolo']}")
+
+
+media = calcola_media_anno(libri_caricati) 
+print(f"\n Media anno di pubblicazione: {media}")
+
+
+libro_recente = trova_libro_piu_recente(libri_caricati)
+if libro_recente:
+    print(f"Libro più recente: {libro_recente['titolo']} uscito nel {libro_recente['anno']}")
+
+
+conteggio_generi = filtra_per_genere(libri_caricati)
+print("\n Libri per genere: ")
+for genere in conteggio_generi:
+    print(f" {genere}: {conteggio_generi['generi']}")
+
+print()
+titolo = input("Inserisci il titolo da modificare. ")
+try:
+    nuovo_anno = int(input("Inserisci il nuovo anno. "))
+except ValueError:
+    print("Anno non valido")
+
